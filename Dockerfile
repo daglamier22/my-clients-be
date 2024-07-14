@@ -1,23 +1,29 @@
-FROM golang:latest as build
+# Specify the base image we need for our GO app
+FROM golang:1.22-alpine AS build
 
-WORKDIR /myclients
+# Create /app directory within the image to hold our application source code
+WORKDIR /app
 
 # Copy the Go module files
 COPY go.mod .
 COPY go.sum .
 
-# Download the Go module dependencies
+# Install the dependencies 
 RUN go mod download
 
+# Copy everything in the root directory into our /app directory
 COPY . .
 
-RUN go build -o /myclients ./cmd/api/main.go
+# Build the app with optional configuration
+RUN CGO_ENABLED=0 GOOS=linux go build -o /opt/my-clients ./cmd/api/main.go
  
-FROM alpine:latest as run
+FROM alpine:latest AS run
 
-# Copy the application executable from the build image
-COPY --from=build /myclients /myclients
+# # Copy the application executable from the build image
+COPY --from=build /opt/my-clients /opt/my-clients
 
-WORKDIR /myclients
+# Tell Docker that the container listens on specified network ports at runtime
 EXPOSE 8080
-CMD ["/myclients"]
+
+# Command to be used to execute when the image is used to start a container
+ENTRYPOINT [ "/opt/my-clients" ]
