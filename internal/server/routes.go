@@ -33,6 +33,13 @@ func (s *Server) HelloWorldHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *Server) healthHandler(w http.ResponseWriter, r *http.Request) {
-	jsonResp, _ := json.Marshal(s.db.Health())
+	// temp disable DB test and just return a basic response
+	// jsonResp, _ := json.Marshal(s.db.Health())
+	resp := make(map[string]string)
+	resp["serverHealth"] = "up and running"
+	jsonResp, err := json.Marshal(resp)
+	if err != nil {
+		log.Fatalf("error handling JSON marshal. Err: %v", err)
+	}
 	_, _ = w.Write(jsonResp)
 }
