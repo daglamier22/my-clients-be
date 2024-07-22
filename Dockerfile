@@ -23,7 +23,7 @@ FROM alpine:latest AS run
 COPY --from=build /opt/my-clients /opt/my-clients
 
 # Tell Docker that the container listens on specified network ports at runtime
-EXPOSE 3001
+EXPOSE 3000
 
 # Command to be used to execute when the image is used to start a container
 ENTRYPOINT [ "/opt/my-clients" ]
