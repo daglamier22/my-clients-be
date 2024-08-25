@@ -1,4 +1,4 @@
-module my-clients-be-tmp
+module my-clients-be
 
 go 1.22.4
 

@@ -2,7 +2,7 @@ package server
 
 import (
 	"fmt"
-	"my-clients-be-tmp/internal/database"
+	"my-clients-be/internal/database"
 	"net/http"
 	"os"
 	"strconv"

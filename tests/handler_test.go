@@ -2,7 +2,7 @@ package tests
 
 import (
 	"io"
-	"my-clients-be-tmp/internal/server"
+	"my-clients-be/internal/server"
 	"net/http"
 	"net/http/httptest"
 	"testing"

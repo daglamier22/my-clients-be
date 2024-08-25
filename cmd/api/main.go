@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"my-clients-be-tmp/internal/server"
+	"my-clients-be/internal/server"
 	"os"
 )
 
