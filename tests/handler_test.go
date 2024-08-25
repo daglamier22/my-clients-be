@@ -2,10 +2,11 @@ package tests
 
 import (
 	"io"
-	"my-clients-be/internal/server"
 	"net/http"
 	"net/http/httptest"
 	"testing"
+
+	"github.com/daglamier22/my-clients-be/internal/server"
 )
 
 func TestHandler(t *testing.T) {

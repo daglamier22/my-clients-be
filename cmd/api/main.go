@@ -2,8 +2,9 @@ package main
 
 import (
 	"fmt"
-	"my-clients-be/internal/server"
 	"os"
+
+	"github.com/daglamier22/my-clients-be/internal/server"
 )
 
 func main() {

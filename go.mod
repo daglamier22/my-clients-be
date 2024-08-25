@@ -1,4 +1,4 @@
-module my-clients-be
+module github.com/daglamier22/my-clients-be
 
 go 1.22.4
 

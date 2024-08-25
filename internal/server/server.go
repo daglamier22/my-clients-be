@@ -2,11 +2,12 @@ package server
 
 import (
 	"fmt"
-	"my-clients-be/internal/database"
 	"net/http"
 	"os"
 	"strconv"
 	"time"
+
+	"github.com/daglamier22/my-clients-be/internal/database"
 
 	_ "github.com/joho/godotenv/autoload"
 )
