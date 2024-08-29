@@ -31,7 +31,7 @@ func (s *Server) SignupHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// username := body.Username
-	fmt.Printf("hi")// %v\n", username)
+	fmt.Printf("hi %v\n", body.Username)
 	resp := make(map[string]string)
 	resp["message"] = "Hello World"
 
