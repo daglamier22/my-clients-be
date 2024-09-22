@@ -1,3 +1,6 @@
+#!make
+include .env
+
 # Simple Makefile for a Go project
 
 # Build the application
