@@ -16,7 +16,7 @@
 
 # Go workspace file
 go.work
-tmp/
+bin/
 
 # IDE specific files
 .vscode
