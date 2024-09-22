@@ -12,6 +12,7 @@ require github.com/ajg/form v1.5.1 // indirect
 
 require (
 	github.com/go-chi/render v1.0.3
+	github.com/jackc/pgerrcode v0.0.0-20240316143900-6e2875d9b438
 	github.com/jackc/pgpassfile v1.0.0 // indirect
 	github.com/jackc/pgservicefile v0.0.0-20221227161230-091c0ba34f0a // indirect
 	github.com/jackc/puddle/v2 v2.2.1 // indirect
