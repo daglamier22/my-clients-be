@@ -1,5 +1,8 @@
 #!make
+
+# change which .env file to use if you want to use goose on prod servers, this way you can keep a .env file for local and prod database updates.
 include .env
+# include .env-prod
 
 # Simple Makefile for a Go project
 
@@ -61,14 +64,14 @@ watch:
 
 # Goose migration status
 goose-db-status:
-	@GOOSE_DRIVER=postgres GOOSE_DBSTRING="postgres://$(DB_USERNAME):$(DB_PASSWORD)@$(DB_HOST):$(DB_PORT)/$(DB_DATABASE)?sslmode=disable&search_path=$(DB_SCHEMA)" goose -dir="./internal/database/migrations" status
+	@GOOSE_DRIVER=postgres GOOSE_DBSTRING="postgres://$(DB_USERNAME):$(DB_PASSWORD)@$(DB_HOST):$(DB_PORT)/$(DB_DATABASE)?sslmode=$(DB_SSL)&search_path=$(DB_SCHEMA)" goose -dir="./internal/database/migrations" status
 
 # Goose migration status
 goose-up:
-	@GOOSE_DRIVER=postgres GOOSE_DBSTRING="postgres://$(DB_USERNAME):$(DB_PASSWORD)@$(DB_HOST):$(DB_PORT)/$(DB_DATABASE)?sslmode=disable&search_path=$(DB_SCHEMA)" goose -dir="./internal/database/migrations" up
+	@GOOSE_DRIVER=postgres GOOSE_DBSTRING="postgres://$(DB_USERNAME):$(DB_PASSWORD)@$(DB_HOST):$(DB_PORT)/$(DB_DATABASE)?sslmode=$(DB_SSL)&search_path=$(DB_SCHEMA)" goose -dir="./internal/database/migrations" up
 
 # Goose migration status
 goose-reset:
-	@GOOSE_DRIVER=postgres GOOSE_DBSTRING="postgres://$(DB_USERNAME):$(DB_PASSWORD)@$(DB_HOST):$(DB_PORT)/$(DB_DATABASE)?sslmode=disable&search_path=$(DB_SCHEMA)" goose -dir="./internal/database/migrations" reset
+	@GOOSE_DRIVER=postgres GOOSE_DBSTRING="postgres://$(DB_USERNAME):$(DB_PASSWORD)@$(DB_HOST):$(DB_PORT)/$(DB_DATABASE)?sslmode=$(DB_SSL)&search_path=$(DB_SCHEMA)" goose -dir="./internal/database/migrations" reset
 
 .PHONY: all build run docker-run docker-down test clean watch goose-db-status goose-up goose-reset
