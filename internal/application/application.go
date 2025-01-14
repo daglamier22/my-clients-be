@@ -14,10 +14,11 @@ import (
 )
 
 type Application struct {
-	Config       Config
-	Db           *sql.DB
-	Server       *http.Server
-	UsersService services.UsersService
+	Config  Config
+	Db      *sql.DB
+	Store   store.Storage
+	Service services.Service
+	Server  *http.Server
 }
 
 type Config struct {
@@ -34,6 +35,7 @@ type DbConfig struct {
 
 func (app *Application) RegisterRoutes() http.Handler {
 	r := chi.NewRouter()
+
 	r.Use(middleware.RequestID)
 	r.Use(middleware.RealIP)
 	r.Use(middleware.Logger)
@@ -59,17 +61,17 @@ func (app *Application) RegisterRoutes() http.Handler {
 	return r
 }
 
-func (app *Application) NewApplication() error {
+func (app *Application) Run(mux http.Handler) error {
 	srv := &http.Server{
 		Addr:         app.Config.Addr,
-		Handler:      app.RegisterRoutes(),
+		Handler:      mux,
 		IdleTimeout:  time.Minute,
 		ReadTimeout:  10 * time.Second,
 		WriteTimeout: 30 * time.Second,
 	}
 
-	usersStore := store.NewUsersStore(app.Db)
-	app.UsersService = services.NewUsersService(usersStore)
+	app.Store = store.NewStorage(app.Db)
+	app.Service = services.NewServices(app.Store)
 
 	log.Printf("Server is running at %s\n\r", app.Config.Addr)
 

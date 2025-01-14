@@ -32,7 +32,7 @@ func main() {
 		},
 	}
 
-	db, err := database.New(cfg.Db)
+	db, err := database.New(cfg.Db.Addr, cfg.Db.MaxOpenConns, cfg.Db.MaxIdleConns, cfg.Db.MaxIdleTime)
 	if err != nil {
 		log.Panic(err)
 	}
@@ -44,5 +44,6 @@ func main() {
 		Db:     db,
 	}
 
-	log.Fatal(app.NewApplication())
+	mux := app.RegisterRoutes()
+	log.Fatal(app.Run(mux))
 }

@@ -9,14 +9,14 @@ import (
 )
 
 type UsersService struct {
-	usersStore store.UsersStore
+	usersStore store.Users
 }
 
-func NewUsersService(usersStore store.UsersStore) UsersService {
-	return UsersService{
-		usersStore: usersStore,
-	}
-}
+// func NewUsersService(usersStore *store.UserStore) *UsersService {
+// 	return &UsersService{
+// 		usersStore: usersStore,
+// 	}
+// }
 
 func (s *UsersService) Signup(ctx context.Context, payload models.SignupPayload) (*models.SignupResponse, error) {
 	u := &store.User{

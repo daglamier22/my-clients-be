@@ -20,7 +20,7 @@ func (app *Application) signupHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	resp, err := app.UsersService.Signup(r.Context(), payload)
+	resp, err := app.Service.Users.Signup(r.Context(), payload)
 	if err != nil {
 		errResp := models.SignupResponse{
 			Status:  "Error",

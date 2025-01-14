@@ -23,17 +23,17 @@ type User struct {
 	Uuid      string `json:"uuid"`
 }
 
-type UsersStore struct {
+type UserStore struct {
 	db *sql.DB
 }
 
-func NewUsersStore(db *sql.DB) UsersStore {
-	return UsersStore{
-		db: db,
-	}
-}
+// func NewUsersStore(db *sql.DB) *UsersStore {
+// 	return &UsersStore{
+// 		db: db,
+// 	}
+// }
 
-func (s *UsersStore) Create(ctx context.Context, u *User) error {
+func (s *UserStore) Create(ctx context.Context, u *User) error {
 	query := `
 		INSERT INTO users (username, password, first_name, last_name, email)
 		VALUES ($1, $2, $3, $4, $5) RETURNING id, created_at, updated_at;
@@ -62,7 +62,7 @@ func (s *UsersStore) Create(ctx context.Context, u *User) error {
 	return nil
 }
 
-func (s *UsersStore) GetUser(ctx context.Context, u *User) error {
+func (s *UserStore) GetUser(ctx context.Context, u *User) error {
 	query := `
 		SELECT user, password, first_name, last_name, email
 		FROM users
@@ -92,7 +92,7 @@ func (s *UsersStore) GetUser(ctx context.Context, u *User) error {
 	return nil
 }
 
-func (s *UsersStore) GetAllUsers(ctx context.Context, u *[]User) error {
+func (s *UserStore) GetAllUsers(ctx context.Context, u *[]User) error {
 	query := `
 		SELECT id, username, password, first_name, last_name, email
 		FROM users;

@@ -5,19 +5,18 @@ import (
 	"database/sql"
 	"time"
 
-	"github.com/daglamier22/my-clients-be/internal/application"
 	_ "github.com/jackc/pgx/v5/stdlib"
 )
 
-func New(dbConfig application.DbConfig) (*sql.DB, error) {
-	db, err := sql.Open("pgx", dbConfig.Addr)
+func New(addr string, maxOpenConns int, maxIdleConns int, maxIdleTime time.Duration) (*sql.DB, error) {
+	db, err := sql.Open("pgx", addr)
 	if err != nil {
 		return nil, err
 	}
 
-	db.SetMaxOpenConns(dbConfig.MaxOpenConns)
-	db.SetMaxIdleConns(dbConfig.MaxIdleConns)
-	db.SetConnMaxIdleTime(dbConfig.MaxIdleTime)
+	db.SetMaxOpenConns(maxOpenConns)
+	db.SetMaxIdleConns(maxIdleConns)
+	db.SetConnMaxIdleTime(maxIdleTime)
 
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
